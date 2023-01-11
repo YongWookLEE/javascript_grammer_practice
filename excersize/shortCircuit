@@ -1,0 +1,98 @@
+const seaFood = {
+    name: "박달대게"
+  };
+   
+  function getName1(fish) {
+    /*if(!fish) {
+      return '이름없음'
+    }
+    return fish;*/
+    return fish || '이름없음' // 만약 fish가 null이라면 대신 or '이름없음'을 리턴
+  }
+
+  function getName2(fish) {
+    /*if(fish) {
+      return fish.name;
+    }
+    return undefined*/
+    return fish && fish.name // 만약 fish가 참이면, 우측값을 리턴한다.
+  }
+
+let name1 = getName1(seaFood)
+console.log(name1) // {name : 박달대게}
+ 
+let name2 = getName1()
+console.log(name2) 
+
+console.log("#################")
+
+name1 = getName2(seaFood)
+console.log(name1) 
+ 
+name2 = getName2()
+console.log(name2) 
+
+console.log("#################")
+
+console.log(false || 'hello')  //hello
+console.log('' || 'hello')  //hello
+console.log('트루' || 'hello') //트루
+console.log(1 || 'hello')  //1
+console.log('hello1' || false) //hello1
+console.log('hello2' || NaN) //hello2
+console.log(null || false) //false  왜?
+console.log(NaN || false) //false  왜?
+console.log(undefined || null) //null
+
+console.log("#################")
+
+console.log(true && "hello"); // 'hello'
+console.log(null && undefined); // null
+console.log(undefined && "hello"); // undefined
+console.log("hello" && null); // null
+console.log("hello" && "bye"); // bye
+console.log(null && "hello"); // null
+console.log(undefined && "hello"); // undefined
+
+
+console.log("#################")
+
+var named = '';
+var userName = named ?? 'Guest'; // 그냥 심플하게 값이 있고 없고로 판단. 빈칸도 결국 값이 빈칸인 것이다.
+console.log(userName); // ''
+ 
+var num = 0;
+var message = num ?? 'Hello'; // 0도 결국 값이 0인것
+console.log(message); // 0
+
+let a = null ?? 'hello';
+let b = '' ?? true;
+let c = false ?? true;
+let d = 0 ?? 1;
+let e = undefined ?? 'world';
+ 
+console.log(a); // 'hello'
+console.log(b); // ''
+console.log(c); // false
+console.log(d); // 0
+console.log(e); // 'world'
+
+console.log("#################")
+
+let oldName = 'oldPerson';
+let newName = 'newPerson';	
+
+oldName &&= newName;
+console.log(oldName);
+
+oldName = 'oldPerson';
+newName = 'newPerson';
+
+oldName ||= newName;
+console.log(oldName);
+
+oldName = undefined;
+newName = 'newPerson';
+
+oldName ??= newName;
+console.log(oldName);
