@@ -28,15 +28,15 @@ console.log(generator1.next())
 console.log("####################################")
 
 let gen2 = function* () {
-    const first = yield -1000;
-    const second = yield(first + 100);
+    const first = yield -1000; // 여기서 -1000지점이다! 알려주고 first =? 상태
+    const second = yield(first + 100); // 이게 second로 들어가는게 아니라 value값만 던져주고 second =? 이 상태
     return first + second;
 }  
 
 let generator2 = gen2();
 console.log(generator2.next())
-console.log(generator2.next(-50))  // 여기서 -50이 first에 들어가서 이건 왜 first가 저렇게 되고
-console.log(generator2.next(200))  // 여기서 200이 second가 저렇게 되는거임?
+console.log(generator2.next(-50))  // 여기서 -50이 first에 들어감
+console.log(generator2.next(200))  // 여기서 200이 second에 들어가게 되고
 
 console.log("####################################")
 
@@ -59,16 +59,17 @@ function* testGenerator() {
     
     const val = yield 2;
     const final = yield 3;
-    return val; // customize this return value outside
+    return final; 
 }
 
 const testGeneratorIt = testGenerator();
 
 console.log(testGeneratorIt.next()); // { value: 1, done: false }
-console.log(testGeneratorIt.next()); // { value: 2, done: false }
-console.log(testGeneratorIt.next(100)); // { value: 3, done: false } 이게 왜 val에 들어감??
-console.log(testGeneratorIt.next()); // { value: undefined -> 100, done: true }
+console.log(testGeneratorIt.next()); // { value: 2, done: false } 여기서 2를 던지면서 val=? 상태인거임 
+console.log(testGeneratorIt.next(100)); // { value: 3, done: false } 여기서 인자값을 ?에 주면서 val에 100이 들어가고 다시 final =? 이 상태
+console.log(testGeneratorIt.next()); // { value: undefined -> 100, done: true } 여기서 값을 준다면 final에 들어가게됨
 
 console.log("####################################")
 
-// 전체적으로 next() 인자값이 어디에 어떻게 들어가는지 이해가 안됨;
+// Generator 안에서 yield는 위치 표시같은 개념 value로 현재 위치를 알려주고 done으로 더 있냐 없냐를 알려줌
+// 바깥에서 next() 안에 값을 넣으면 그전에 던졌던 위치의 질문에 답을 주는 느낌이다.
