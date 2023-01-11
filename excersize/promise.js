@@ -163,3 +163,4 @@ Promise.any([promise1, promise2, promise3]).then(value =>console.log(value +'any
 Promise.any([promise5, promise2, promise6]).then(value =>console.log(value +'any2')).catch(err => console.log(err +'any2'));
 //Promise.allSettled 각각의 status
 Promise.allSettled([promise5, promise2, promise6]).then(value =>console.log(value)).catch(err => console.log(err +'allSettled'));
+Promise.allSettled([promise1, promise2, promise3]).then(value =>console.log(value)).catch(err => console.log(err +'allSettled'));
