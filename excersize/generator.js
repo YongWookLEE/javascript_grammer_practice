@@ -7,11 +7,12 @@ class Gen{
     }
 }
 
-// for(let n of new Gen()) {
-//     console.log(n)
-// }
-
+for(let n of new Gen()) {
+    console.log(n)
+}
+console.log("####################################")
 // generator는 함수이다. function 바로 뒤에 *를 붙이는것이 일관성 유지목적으로 권장된다.
+// generator 함수는 Arrow function 사용 불가.
 function* gen1(){
     yield 'hello';
     yield 'world';
@@ -73,3 +74,5 @@ console.log("####################################")
 
 // Generator 안에서 yield는 위치 표시같은 개념 value로 현재 위치를 알려주고 done으로 더 있냐 없냐를 알려줌
 // 바깥에서 next() 안에 값을 넣으면 그전에 던졌던 위치의 질문에 답을 주는 느낌이다.
+
+//################ Generator 안쪽에서 Generator 사용 ######################
