@@ -137,10 +137,162 @@ console.log(
 );
 
 console.log("################################################################")
-//.filter()
+//.filter() 배열을 순회하면서 콜백 함수의 반환값이 true에 해당하는 요소로만 구성된 새로운 배열을 생성하여 반환
+// .find와 .map을 더한 느낌
+// arr.filter((element, index, array) =>{}, this)
+// element 현재 배열요소 값, index 배열 인덱스, array 참조한 배열, this, 리턴 값: 테스트를 통과한 요소로 이루어진 배열/ 빈 배열
+
+numberArr = [1,2,3,4,5];
+const numberFilterArr = numberArr.filter(i => i %2 === 0);
+console.log(numberFilterArr);
+
+let testJson = [{name:"일건", salary: 1000000},
+                {name:"이건", salary: 2000000},
+                {name:"삼건", salary: 3000000},
+                {name:"사건", salary: 4000000},
+                {},
+                {name:"오건", salary: NaN},
+                {name:"육건", salary: 'undefined'},
+                {name:"사건", salary: 7000000}]
+
+// 이런식으로 유효성 검증에도 사용 가능
+function numberFilter(obj) {
+    if('salary' in obj && (typeof(obj.salary) ==='number' && !isNaN(obj.salary) && obj.salary>0)){
+        return true;
+    }else{
+        return false;
+    }
+}
+let newFilterJson = testJson.filter(numberFilter);
+console.log(newFilterJson)
+
+let newTestJson = testJson.filter(e => e.name === "이건")
+console.log(newTestJson);
+
+(function test(){
+    var testArray = [1,2,3,4,5,50,100];
+    var obj = {min : 1, max : 10};
+ 
+    function getThreeUpper(value){
+        return value>=this.min && value<=this.max;
+    }
+ 
+    var newArray = testArray.filter(getThreeUpper, obj); // 두번째 인수를 obj로 줘서 this를 조작함 
+ 
+    console.log(newArray);
+})();
 
 console.log("################################################################")
-//.reduce()
+//.reduce() 반환값을 전달 받아 연산의 결과값 반환.
+// 첫번째 인자부터 시작해 배열값인 두번째 인자를 순회하며 acc +=currVal 을 실행
+// arr.reduce((acc, currVal, index, array) => {}, initialVal)
+// acc 누산기, 순회하며 계속 더해져서 합쳐지는 값/ currVal 현재 값/ index 인덱스/ array 배열/ initialVal 최초 호출에서 acc 누산기에 제공하는 값, 없으면 배열의 첫번째 요소/ 리턴 값: 누적 계산 결과값
+
+const numberArr12 = [1,2,3,4,5];
+const sum12 = numberArr12.reduce((acc, curVal, index)=>{
+    console.log(`Current Index: ${index} / Previous acc: ${acc} / Current Value: ${curVal}`)
+    return acc+curVal;
+})
+console.log(sum12)
+
+// 배열에 들어있는 값을 써야할 경우 initial 값을 반드시 준다.
+let initialVal = 0;
+let listtt = [{x:1},
+              {x:2},
+              {x:3}]
+let summ = listtt.reduce((acc, curVal) => acc + curVal.x, initialVal)
+console.log(summ)
+
+// 속성으로 객체 분류하기
+var peoples = [
+    {
+        name : 'Alice',
+        age : 21
+    },
+    {
+        name : 'Max',
+        age : 20
+    },
+    {
+        name : 'Jane',
+        age : 20
+    }
+ 
+];
+ 
+function groupBy(objectArray, property){
+    return objectArray.reduce(function (accumulator, currentObj) {
+        var key = currentObj[property];
+        console.log(`key : ${key}`);
+        if (!accumulator[key]) {
+            accumulator[key] = [];
+        }
+        accumulator[key].push(currentObj);
+        return accumulator;
+    }, {}); // 누산기를 산술에 쓰지않고 빈 객체나 배열을 줘서 여기에다 담는 용도로도 쓴다.
+};
+ 
+var groupedPeople = groupBy(peoples, 'age');
+console.log(`groupedPeople : ${JSON.stringify(groupedPeople)}`);
+/*
+"age" 속성으로 객체 분류 (나이 별)
+groupedPeople : {
+	"20":[{"name":"Max","age":20},{"name":"Jane","age":20}],
+    "21":[{"name":"Alice","age":21}]
+}
+*/
+
+//프로미스 순차적으로 실행하기
+
+function runPromiseInSequence(arr, input){
+    return arr.reduce(function(accumulator, currentFunction){
+        console.log(`accumulator : ${accumulator}`);
+        console.log(`currentFunction : ${currentFunction}`);
+        console.log(`                                    `);
+        return accumulator.then(currentFunction); 
+        // accumulator가 resolve해서 input값을 줘서 then에서 input을 인자라 받아서 함수 실행하는 격
+    }, Promise.resolve(input));
+};
+ 
+function promise1(value){
+    return new Promise(function(resolve, reject){
+        console.log(`promise1 -value : ${value}`)
+        resolve(value * 5);
+    });
+};
+ 
+function promise2(value){
+    return new Promise(function(resolve, reject){
+        console.log(`promise2 -value : ${value}`)
+        resolve(value * 2);
+    });
+};
+  
+function function3(value){
+    return value * 3;
+};
+ 
+function promise4(value){
+    return new Promise(function(resolve, reject){
+        console.log(`promise4 -value : ${value}`)
+        resolve(value * 4);
+    });
+};
+ 
+const promiseArr = [promise1, promise2, function3, promise4, ]
+runPromiseInSequence(promiseArr, 10)
+.then(function(value){
+    console.log(`result value : ${value}`);
+});
+
+//오른쪽부터 누산하기
+var arr111 = ["경기도", "안양시", "만안구"];
+ 
+var result222 = arr111.reduceRight((acc, element) => acc + " " + element);
+ 
+console.log(result222); //  만안구 안양시 경기도
+console.log(typeof result222); // string
+
 
 console.log("################################################################")
 //.some()
