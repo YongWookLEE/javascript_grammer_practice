@@ -295,10 +295,43 @@ console.log(typeof result222); // string
 
 
 console.log("################################################################")
-//.some()
+//.some() 배열 메소드 include()의 콜백함수 버전. 로직에 따른 bool 리턴
+// 주어진 조건을 한개라도 통과하면 true, 모두 통과 못하면 false / 빈 배열은 무조건 false
+//arr.some((currVal, index, array) => {}, this);
+// currVal: 현재 배열요소값, index: 인덱스, array: 참조 배열, this:this 리턴 값: 하나라도 참이면 true / 그 외에 false
+
+const arrayy = [1, 3, 5];
+const resulttt = arrayy.some((val) =>{
+    return val % 2 === 0;
+})
+
+console.log(resulttt);
 
 console.log("################################################################")
-//.every()
+//.every() some의 반대 버전, 모든 요소가 통과하면 true/ 하나라도 통과 못하면 false / 빈배열은 무조건 true
+//arr.every((currVal, index, array) => {}, this);
+// currVal: 현재 배열요소값, index: 인덱스, array: 참조 배열, this:this 리턴 값: 모두 참이면 true / 하나라도 거짓이면 false
+
+const arrayaa = [1, 30, 39, 29, 13];
+ 
+const resultt1 = arrayaa.every((currentValue) => {
+	return currentValue < 40;
+})
+ 
+console.log(resultt1); // 리턴 값 : true
+// 그 이유는 array의 모든 요소가 40보다 작기 때문이다.
+// 하나라도 부합한 조건에 맞지 안으면 false, 모두 부합하면 true
+ 
+// -----------------------------------------------
+ 
+const arrayaa2 = [1, 30, 39, 29, 100, 13];
+ 
+const resultt2 = arrayaa2.every((currentValue) => {
+	return currentValue < 40;
+})
+console.log(resultt2); // 리턴 값 : false
+// 그 이유는 array의 1개의 요소 100이 40보다 크기 때문이다.
+// 하나라도 부합한 조건에 맞지 안으면 false, 모두 부합하면 true
 
 console.log("################################################################")
 //.sort() 제일 귀찮음
