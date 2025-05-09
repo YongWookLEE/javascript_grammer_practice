@@ -13,7 +13,7 @@ numberArr.forEach((n) => {
 console.log(total);
 
 console.log("################################################################");
-//.map 순회하면서 콜백함수의 실행결과를 리턴한 값으로 이루어진 배열을 반환!
+//.map 순회하면서 콜백함수의 실행결과를 리턴한 값으로 이루어진 배열을 반환!!
 //arr.map((currentValue, index, array) => { }, thisArg)
 // currentValue: 현재 배열요소값, index: 배열 인덱스, array: 참조한 배열, thisArg: 콜백함수에서 this로 사용할 값, 리턴 값: 반환 타입은 찾은 요소의 타입/ 없다면 undefinded
 
